@@ -1,4 +1,5 @@
 const db = require('../models');
+const CRUDService = require('../services/CRUDService');
 
 let getHomePage = async (req, res) => {
 	try {
@@ -12,10 +13,25 @@ let getHomePage = async (req, res) => {
 	}
 };
 
-// let getAboutPage = (req, res) => {
-// 	return res.render('test/about.ejs');
-// };
+let getCRUD = (req, res) => {
+	res.render('crud.ejs');
+};
+
+let postCRUD = async (req, res) => {
+	let message = await CRUDService.createNewUser(req.body);
+	console.log(message);
+	// console.log(req.body);
+	return res.send('post homeController');
+};
+
+let getListCRUD = async (req, res) => {
+	let message = await CRUDService.getAllUser();
+	console.log(message);
+	return res.send('get list homeController');
+};
 module.exports = {
 	getHomePage: getHomePage,
-	// getAboutPage: getAboutPage,
+	getCRUD: getCRUD,
+	postCRUD: postCRUD,
+	getListCRUD: getListCRUD,
 };
